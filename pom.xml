@@ -4,7 +4,7 @@
 
     <groupId>zs.frontline</groupId>
     <artifactId>frontline-pet-clinic</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <modules>
         <module>frontline-pet-clinic-data</module>
@@ -47,6 +47,6 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:FrontlineZS/frontline-pet-clinic.git</developerConnection>
-    <tag>frontline-pet-clinic-1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 </project>
