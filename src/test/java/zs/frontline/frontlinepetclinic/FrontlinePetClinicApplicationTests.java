@@ -12,7 +12,6 @@ public class FrontlinePetClinicApplicationTests {
 	@Test
 	public void contextLoads() {
 
-		
 	}
 }
 
