@@ -4,7 +4,7 @@
 
     <groupId>zs.frontline</groupId>
     <artifactId>frontline-pet-clinic</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <modules>
         <module>frontline-pet-clinic-data</module>
