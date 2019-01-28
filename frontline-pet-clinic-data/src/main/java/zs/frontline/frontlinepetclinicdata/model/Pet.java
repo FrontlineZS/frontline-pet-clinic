@@ -1,4 +1,4 @@
-package zs.frontline.frontlinepetclinic.model;
+package zs.frontline.frontlinepetclinicdata.model;
 
 import lombok.Data;
 
