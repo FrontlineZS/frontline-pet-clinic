@@ -47,6 +47,6 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:FrontlineZS/frontline-pet-clinic.git</developerConnection>
-      <tag>frontline-pet-clinic-0.0.1</tag>
+        <tag>frontlineZS-pet-clinic-0.0.1</tag>
   </scm>
 </project>
