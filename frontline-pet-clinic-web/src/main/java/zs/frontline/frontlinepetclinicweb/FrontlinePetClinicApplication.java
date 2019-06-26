@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.*;
 
 @SpringBootApplication
@@ -26,7 +27,7 @@ public class FrontlinePetClinicApplication {
             new HashSet<>(Arrays.asList(1, 2, 3)),
             new HashSet<>(Collections.singleton(5))
         );
-
+        
         System.out.println(union);
         
         String[] strings = {"juta", "konopie", "nylon"};
@@ -156,6 +157,74 @@ public class FrontlinePetClinicApplication {
             favoriteClass.getName()
         );
         System.out.println("-----------------");
+        
+        // GENERICS
+        Chooser<String> chooser = new Chooser<>(Arrays.asList("123", "456", "789"));
+        System.out.println(chooser.choose());
+        System.out.println("-----------------");
+        
+        Stack<String> stacks = new Stack<>();
+        for (String arg : args) {
+            stacks.push(arg);
+        }
+        
+        while (!stacks.isEmpty()) {
+            System.out.println(stacks.pop().toUpperCase());
+        }
+    }
+    
+    private static class Stack<E> {
+        private E[] elements;
+//        private Object[] elements;
+        private int size = 0;
+        private static final int DEFAULT_INITIAL_CAPACITY = 4;
+        
+        @SuppressWarnings("unchecked")
+        private Stack() {
+            elements = (E[]) new Object[DEFAULT_INITIAL_CAPACITY];
+//            elements = new Object[DEFAULT_INITIAL_CAPACITY];
+        }
+        
+        private void push(E el) {
+            ensureCapacity();
+            elements[size++] = el;
+        }
+    
+        private E pop() {
+            if (isEmpty()) {
+                throw new EmptyStackException();
+            }
+            
+//            @SuppressWarnings("unchecked") // pop needs elements parametrized with E so casting is safely
+//            E result = (E) elements[--size];
+            E result = elements[--size];
+            elements[size] = null;
+            
+            return result;
+        }
+    
+        private boolean isEmpty() {
+            return size == 0;
+        }
+    
+        private void ensureCapacity() {
+            if (elements.length == size) {
+                elements = Arrays.copyOf(elements, 2 * size + 1);
+            }
+        }
+    }
+    
+    private static class Chooser<E> {
+        private final List<E> choiceList;
+    
+        private Chooser(Collection<E> choices) {
+            this.choiceList = new ArrayList<>(choices);
+        }
+    
+        private E choose() {
+            Random rnd = ThreadLocalRandom.current();
+            return choiceList.get(rnd.nextInt(choiceList.size()));
+        }
     }
     
     static Annotation getAnnotation(AnnotatedElement element, String annotationTypeName) {
@@ -170,18 +239,18 @@ public class FrontlinePetClinicApplication {
         return element.getAnnotation(annotationType.asSubclass(Annotation.class));
     }
     
-    public static class Favorites {
+    private static class Favorites {
         private Map<Class<?>, Object> favorites = new
             HashMap<>();
-        
-        public <T> void putFavorite(Class<T> type, T instance) {
+    
+        private <T> void putFavorite(Class<T> type, T instance) {
             favorites.put(
                 Objects.requireNonNull(type),
                 type.cast(instance)
             );
         }
-        
-        public <T> T getFavorite(Class<T> type) {
+    
+        private <T> T getFavorite(Class<T> type) {
             return type.cast(favorites.get(type));
         }
     }
